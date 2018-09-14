@@ -56,6 +56,7 @@ void fillFormulaVector(ifstream& ifs, vector <Formula>& vf) {
 			vf.push_back(f);
 		}
 	}
+	ifs.close();
 }
 
 
