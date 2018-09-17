@@ -18,8 +18,8 @@ struct Formula {
 	int numOfHydrogen;
 };
 
-void fillFormulaVector(ifstream& ifs, vector <Formula>& vf);
 void enterFileName(ifstream& ifs);
+void fillFormulaVector(ifstream& ifs, vector <Formula>& vf);
 void sortFormulaVector(vector <Formula>& vc);
 void displayFormulaVector(vector <Formula>& vf);
 
@@ -30,35 +30,8 @@ int main() {
 	fillFormulaVector(ifs, vectorOfFormulas);
 	sortFormulaVector(vectorOfFormulas);
 	displayFormulaVector(vectorOfFormulas);
-}
-
-void fillFormulaVector(ifstream& ifs, vector <Formula>& vf) {
-	string formulaName;
-	int carbon;
-	int hydrogen;
-	char c;
-	char h;
-	while (ifs >> formulaName >> c >> carbon >> h >> hydrogen) {
-		Formula f;
-		bool seeRepeat = false;
-		for (size_t i = 0; i < vf.size(); ++i) {
-			if (vf[i].numOfCarbon == carbon && vf[i].numOfHydrogen == hydrogen 
-				&& i < vf.size()) {
-				vf[i].name.push_back(formulaName);
-				seeRepeat = true;
-			}
-		}
-
-		if (seeRepeat == false) {
-			f.name.push_back(formulaName);
-			f.numOfCarbon = carbon;
-			f.numOfHydrogen = hydrogen;
-			vf.push_back(f);
-		}
-	}
 	ifs.close();
 }
-
 
 void enterFileName(ifstream& ifs) {
 	string fileName;
@@ -71,6 +44,31 @@ void enterFileName(ifstream& ifs) {
 		cin >> fileName;
 		ifs.clear();
 		ifs.open(fileName);
+	}
+}
+
+void fillFormulaVector(ifstream& ifs, vector <Formula>& vf) {
+	string formulaName;
+	int carbon;
+	int hydrogen;
+	char c;
+	char h;
+	while (ifs >> formulaName >> c >> carbon >> h >> hydrogen) {
+		Formula f;
+		bool seeRepeat = false;
+		for (size_t i = 0; i < vf.size(); ++i) {
+			if (vf[i].numOfCarbon == carbon && vf[i].numOfHydrogen == hydrogen) {
+				vf[i].name.push_back(formulaName);
+				seeRepeat = true;
+			}
+		}
+
+		if (seeRepeat == false) {
+			f.name.push_back(formulaName);
+			f.numOfCarbon = carbon;
+			f.numOfHydrogen = hydrogen;
+			vf.push_back(f);
+		}
 	}
 }
 
